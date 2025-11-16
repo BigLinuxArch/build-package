@@ -225,8 +225,8 @@ jobs:
           gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
           cd $gitfolder
           
-          # sudo -u builduser bash -c 'makepkg -sc --noconfirm --skippgpcheck'
-          sudo -u builduser bash -c 'pkgctl build'
+          sudo -u builduser bash -c 'makepkg -sc --noconfirm --skippgpcheck'
+          # sudo -u builduser bash -c 'pkgctl build'
           
           ls -lh
           
@@ -264,27 +264,29 @@ jobs:
           exit 0' > md5.sh
           bash md5.sh
             
-#       - name: Publish Package on GitHub
-#         shell: bash
-#         run: |
-#           cd /home/builduser
-#           gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-#           cd $gitfolder
-#           ls -lh
-#
-#           #Release#
-#           source PKGBUILD
-#           release=${pkgname}-${pkgver}-${pkgrel}
-#
-#           echo ${{ github.token }} | gh auth login --with-token
-#           repo=${{ github.repository }}
-#
-#           gh release create ${release} --title ${release} --repo ${repo} --notes "automated release from ${{ github.event.client_payload.url }}" || echo "release already exists"
-#           GITHUB_LINK=https://github.com/${repo}/releases/download/${release}
-#           for i in .zst .sig .tar .md5; do
-#             find -iname "*$i" -exec gh release upload ${release} --repo ${repo} --clobber {} \;
-#           done
-#
+      - name: Publish Package on GitHub
+        shell: bash
+        run: |
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          ls -lh
+
+          #Release#
+          source PKGBUILD
+          release=${pkgname}-${pkgver}-${pkgrel}
+
+          # echo ${{ github.token }} | gh auth login --with-token
+          # repo=${{ github.repository }}
+          echo ${{ secrets.TOKEN_RELEASE }} | gh auth login --with-token
+          repo=$(sed 's|https://github.com/||' <<< $url)
+
+          gh release create ${release} --title ${release} --repo ${repo} --notes "automated release from ${{ github.event.client_payload.url }}" || echo "release already exists"
+          GITHUB_LINK=https://github.com/${repo}/releases/download/${release}
+          for i in .zst .sig .tar .md5; do
+            find -iname "*$i" -exec gh release upload ${release} --repo ${repo} --clobber {} \;
+          done
+
 #       - name: Push to Repo
 #         shell: bash
 #         run: |
