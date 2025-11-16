@@ -30,109 +30,109 @@ jobs:
         shell: bash
         run: |
           echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
-          pacman -Syu --noconfirm pacman sudo github-cli gnupg devtools arch-install-scripts
+          # pacman -Syu --noconfirm pacman sudo github-cli gnupg devtools arch-install-scripts
 
-          # pacman -Syu --noconfirm pacman sudo git github-cli openssh gnupg coreutils rsync wget fakeroot binutils cmake extra-cmake-modules gcc make devtools \
-          # acl \
-          # archlinux-keyring \
-          # autoconf \
-          # automake \
-          # base-devel \
-          # binutils \
-          # bison \
-          # btrfs-progs \
-          # cryptsetup \
-          # db \
-          # debugedit \
-          # diffutils \
-          # docker \
-          # dnssec-anchors \
-          # fakeroot \
-          # flex \
-          # gc \
-          # gcc-libs \
-          # git \
-          # glib2 \
-          # groff \
-          # grub \
-          # guile \
-          # iputils \
-          # jansson \
-          # ldns \
-          # libedit \
-          # libisl \
-          # libmpc \
-          # libnghttp2 \
-          # libnl \
-          # libp11-kit \
-          # libpcap \
-          # libpsl \
-          # libsasl \
-          # libseccomp \
-          # libsecret \
-          # libssh2 \
-          # libsysprof-capture \
-          # libtasn1 \
-          # libtirpc \
-          # libtool \
-          # libunistring \
-          # libverto \
-          # libxcrypt \
-          # libxml2 \
-          # licenses \
-          # linux \
-          # linux-api-headers \
-          # linux-firmware \
-          # linux-firmware-whence \
-          # lz4 \
-          # lzo \
-          # m4 \
-          # make \
-          # mkinitcpio \
-          # mkinitcpio-busybox \
-          # mpfr \
-          # nano \
-          # ncurses \
-          # nettle \
-          # npth \
-          # openssh \
-          # openssl \
-          # p11-kit \
-          # pacman-mirrorlist \
-          # pam \
-          # pambase \
-          # patch \
-          # pciutils \
-          # pcre2 \
-          # perl \
-          # perl-error \
-          # perl-mailtools \
-          # perl-timedate \
-          # pinentry \
-          # pipewire-jack \
-          # pkgconf \
-          # popt \
-          # procps-ng \
-          # psmisc \
-          # readline \
-          # sed \
-          # shadow \
-          # sqlite \
-          # sudo \
-          # systemd \
-          # systemd-libs \
-          # systemd-sysvcompat \
-          # tar \
-          # texinfo \
-          # tpm2-tss \
-          # tzdata \
-          # util-linux \
-          # util-linux-libs \
-          # which \
-          # xz \
-          # zlib \
-          # zram-generator \
-          # zstd
+          pacman -Syu --noconfirm pacman sudo git github-cli openssh gnupg coreutils rsync wget fakeroot binutils cmake extra-cmake-modules gcc make devtools \
+          acl \
+          archlinux-keyring \
+          autoconf \
+          automake \
+          base-devel \
+          binutils \
+          bison \
+          btrfs-progs \
+          cryptsetup \
+          db \
+          debugedit \
+          diffutils \
+          docker \
+          dnssec-anchors \
+          fakeroot \
+          flex \
+          gc \
+          gcc-libs \
+          git \
+          glib2 \
+          groff \
+          grub \
+          guile \
+          iputils \
+          jansson \
+          ldns \
+          libedit \
+          libisl \
+          libmpc \
+          libnghttp2 \
+          libnl \
+          libp11-kit \
+          libpcap \
+          libpsl \
+          libsasl \
+          libseccomp \
+          libsecret \
+          libssh2 \
+          libsysprof-capture \
+          libtasn1 \
+          libtirpc \
+          libtool \
+          libunistring \
+          libverto \
+          libxcrypt \
+          libxml2 \
+          licenses \
+          linux \
+          linux-api-headers \
+          linux-firmware \
+          linux-firmware-whence \
+          lz4 \
+          lzo \
+          m4 \
+          make \
+          mkinitcpio \
+          mkinitcpio-busybox \
+          mpfr \
+          nano \
+          ncurses \
+          nettle \
+          npth \
+          openssh \
+          openssl \
+          p11-kit \
+          pacman-mirrorlist \
+          pam \
+          pambase \
+          patch \
+          pciutils \
+          pcre2 \
+          perl \
+          perl-error \
+          perl-mailtools \
+          perl-timedate \
+          pinentry \
+          pipewire-jack \
+          pkgconf \
+          popt \
+          procps-ng \
+          psmisc \
+          readline \
+          sed \
+          shadow \
+          sqlite \
+          sudo \
+          systemd \
+          systemd-libs \
+          systemd-sysvcompat \
+          tar \
+          texinfo \
+          tpm2-tss \
+          tzdata \
+          util-linux \
+          util-linux-libs \
+          which \
+          xz \
+          zlib \
+          zram-generator \
+          zstd
 
       # - name: Clean System
       #   shell: bash -O extglob {0}
