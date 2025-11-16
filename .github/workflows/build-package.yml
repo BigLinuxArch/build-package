@@ -19,7 +19,7 @@ jobs:
         - /var:/lixo/var
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: echo PayLoads
         run: |
           echo "url: ${{ github.event.client_payload.url }}"
