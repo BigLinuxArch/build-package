@@ -279,7 +279,7 @@ jobs:
           # echo ${{ github.token }} | gh auth login --with-token
           # repo=${{ github.repository }}
           echo ${{ secrets.TOKEN_RELEASE }} | gh auth login --with-token
-          repo=$(sed 's|https://github.com/||' <<< $url)
+          repo=$(sed 's|https://github.com/||' <<< ${{ github.event.client_payload.url }})
 
           gh release create ${release} --title ${release} --repo ${repo} --notes "automated release from ${{ github.event.client_payload.url }}" || echo "release already exists"
           GITHUB_LINK=https://github.com/${repo}/releases/download/${release}
