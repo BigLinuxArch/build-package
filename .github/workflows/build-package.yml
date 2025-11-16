@@ -326,38 +326,8 @@ jobs:
       - name: Telegram Alert Fail
         if: ${{ failure() || cancelled() }}
         run: |
-          curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true}' ${{ secrets.MESSAGE_BOT_KEY }}
+          curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "🚨 FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true, "disable_web_page_preview": true}' ${{ secrets.MESSAGE_BOT_KEY }}
           
         ## Tmate ##
       #- name: Setup tmate session
       #  uses: mxschmitt/action-tmate@v3 
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-#      - name: upload-cdn77
-#        shell: bash -O extglob {0}
-#        run: |
-#          # if is not yet supported in composite https://github.com/actions/runner/blob/main/docs/adrs/0549-composite-run-steps.md#if-condition
-#          if [ -z "${{ inputs.cdn77-host }}" ] || [ -z "${{ inputs.cdn77-user }}" ] || [ -z "${{ inputs.cdn77-pwd }}" ]; then 
-#            echo "## not (all) credentials given for cdn77 upload"
-#            exit 0
-#          fi
-#          
-#          echo "## cdn77 upload"
-#          
-#          ssh-keyscan -t rsa ${{ inputs.cdn77-host }} >> /home/runner/.ssh/known_hosts
-#          ## create target dir
-#          sshpass -p "${{ inputs.cdn77-pwd }}" rsync -vaP --stats -e ssh ${{ inputs.edition }} \
-#            ${{ inputs.cdn77-user }}@${{ inputs.cdn77-host }}:/www/
-#          # upload
-#          sshpass -p "${{ inputs.cdn77-pwd }}" rsync -vaP \
-#            --stats -e ssh ${{ steps.upload-prepare.outputs.upload-files }} \
-#            ${{ inputs.cdn77-user }}@${{ inputs.cdn77-host }}:/www/${{ inputs.edition }}/${{ inputs.version }}/
