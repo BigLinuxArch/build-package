@@ -5,7 +5,7 @@ on:
   repository_dispatch:
     types:
       - biglinuxArch/*
-  
+
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           echo "url: ${{ github.event.client_payload.url }}"
           echo "branch: ${{ github.event.client_payload.branch }}"
           echo "extrarepo: ${{ github.event.client_payload.extrarepo }}"
-          
+
       - name: Install Dependencies
         shell: bash
         run: |
@@ -74,7 +74,7 @@ jobs:
       #     /lixo/usr/local/share/chromium \
       #     /lixo/usr/local/share/powershell
       #     df -h
-          
+
       - name: Add BigLinux Repo and Key
         shell: bash
         run: |
@@ -95,9 +95,9 @@ jobs:
           # [biglinux-stable]
           # SigLevel = PackageRequired
           # Server = https://repo.biglinux.com.br/stable/$arch' | tee -a /etc/pacman.conf
-          
+
           sed -i '/PACKAGER=/s/#PACKAGER=.*/\PACKAGER="BigLinux Package Build <bigbruno@gmail.com>\"/' /etc/makepkg.conf
-          
+
           #add biglinux Keyring
           git clone --depth 1 https://github.com/biglinux/biglinux-keyring.git
           pushd biglinux-keyring
@@ -106,32 +106,32 @@ jobs:
             install -m0644 biglinux-trusted /usr/share/pacman/keyrings/
           popd
           rm -rf biglinux-keyring
-          
+
           pacman-key --init
           pacman-key --populate archlinux biglinux
-        
+
           pacman -Sy
-          
+
       - name: Makepkg Build
         shell: bash
         run: |
           useradd builduser -m
           passwd -d builduser
           printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers
-          
+
           cd /home/builduser
           sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
           gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
           cd $gitfolder
-          
+
           # Build with pkgctl
           # sudo -u builduser bash -c 'pkgctl build'
 
           # Build with makepkg
           sudo -u builduser bash -c 'makepkg -sc --noconfirm --skippgpcheck'
-          
+
           ls -lh
-          
+
       - name: Rename Package
         shell: bash -O extglob {0}
         run: |
@@ -140,7 +140,7 @@ jobs:
           gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
           cd $gitfolder
           for i in *.zst; do if [ -n "$(ls $i | grep :)" ]; then mv $i $(echo $i | sed 's/:/-/'); fi; done
-          
+
       - name: sign package
         shell: bash -O extglob {0}
         run: |
@@ -152,7 +152,7 @@ jobs:
           for p in $(find $PWD -maxdepth 1 -regex '.*\.pkg\.tar\.\(xz\|zst\)'); do
             gpg --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" --detach-sign ${p}
           done
-      
+
       - name: CheckSum
         shell: bash -O extglob {0}
         run: |
@@ -165,7 +165,7 @@ jobs:
           for i in $(ls *.sig | sed 's/.sig//'); do md5sum $i.sig >> $i.md5; done
           exit 0' > md5.sh
           bash md5.sh
-            
+
       - name: Publish Package on GitHub
         shell: bash
         run: |
@@ -213,17 +213,17 @@ jobs:
       #     sleep 10
       #     done
 
-          
+
       #- name: Telegram Alert End
         #shell: bash
         #run: |
           #curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "Pacote: ${{ github.event.action }} criado e enviado a partir do branch ${{ github.ref_name }}", "disable_notification": true}' ${{ secrets.MESSAGE_BOT_KEY }}
-          
+
       - name: Telegram Alert Fail
         if: ${{ failure() || cancelled() }}
         run: |
           curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "🚨 FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true, "disable_web_page_preview": true}' ${{ secrets.MESSAGE_BOT_KEY }}
-          
+
         ## Tmate ##
       #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3 
+      #  uses: mxschmitt/action-tmate@v3
