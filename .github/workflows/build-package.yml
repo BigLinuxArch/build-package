@@ -25,7 +25,6 @@ jobs:
           echo "url: ${{ github.event.client_payload.url }}"
           echo "branch: ${{ github.event.client_payload.branch }}"
           echo "extrarepo: ${{ github.event.client_payload.extrarepo }}"
-          exit 1
 
       - name: Install Dependencies
         shell: bash
