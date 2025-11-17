@@ -4,7 +4,7 @@ name: Build Package
 on:
   repository_dispatch:
     types:
-      - biglinuxArch/*
+      - BiglinuxArch/*
 
   workflow_dispatch:
 
@@ -23,6 +23,7 @@ jobs:
       - name: echo PayLoads
         run: |
           echo "url: ${{ github.event.client_payload.url }}"
+          echo "user: ${{ github.event.client_payload.user }}"
           echo "branch: ${{ github.event.client_payload.branch }}"
           echo "extrarepo: ${{ github.event.client_payload.extrarepo }}"
 
