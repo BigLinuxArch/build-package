@@ -31,7 +31,7 @@ jobs:
         run: |
           echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
-          pacman -Syu --noconfirm git github-cli openssh gnupg
+          pacman -Syu --noconfirm sudo git github-cli openssh gnupg
 
       # - name: Clean System
       #   shell: bash -O extglob {0}
