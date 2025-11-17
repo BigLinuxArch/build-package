@@ -189,29 +189,29 @@ jobs:
             find -iname "*$i" -exec gh release upload ${release} --repo ${repo} --clobber {} \;
           done
 
-      # - name: Push to Repo
-      #   shell: bash
-      #   run: |
-      #     cd /home/builduser
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     ls -lh
+      - name: Push to Repo
+        shell: bash
+        run: |
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          ls -lh
 
-      #     echo "## ssh setup"
-      #     mkdir -p /home/runner/.ssh
-      #     touch /home/runner/.ssh/id_rsa
-      #     chmod 600 /home/runner/.ssh/id_rsa
-      #     ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-      #     echo "${{ secrets.PKGBUILD_KEY }}" >> /home/runner/.ssh/id_rsa
-      #     eval `ssh-agent -s`
-      #     ssh-add /home/runner/.ssh/id_rsa
-      #     ssh-keyscan -t rsa -p ${{ secrets.PKGBUILD_PORT }} ${{ secrets.PKGBUILD_HOST }} >> /home/runner/.ssh/known_hosts
+          echo "## ssh setup"
+          mkdir -p /home/runner/.ssh
+          touch /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
+          ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+          echo "${{ secrets.PKGBUILD_KEY }}" >> /home/runner/.ssh/id_rsa
+          eval `ssh-agent -s`
+          ssh-add /home/runner/.ssh/id_rsa
+          ssh-keyscan -t rsa -p ${{ secrets.PKGBUILD_PORT }} ${{ secrets.PKGBUILD_HOST }} >> /home/runner/.ssh/known_hosts
 
-      #     ls -lh
-      #     for i in *.zst *.sig *.md5; do
-      #     test -e $i && rsync -vapz -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.PKGBUILD_PORT }}" $i ${{ secrets.PKGBUILD_USER }}@${{ secrets.PKGBUILD_HOST }}:${{ secrets.PKGBUILD_ARCHLINUX_DIR }}/x86_64
-      #     sleep 10
-      #     done
+          ls -lh
+          for i in *.zst *.sig *.md5; do
+          test -e $i && rsync -vapz -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.PKGBUILD_PORT }}" $i ${{ secrets.PKGBUILD_USER }}@${{ secrets.PKGBUILD_HOST }}:${{ secrets.PKGBUILD_ARCHLINUX_DIR }}/x86_64
+          sleep 10
+          done
 
 
       #- name: Telegram Alert End
