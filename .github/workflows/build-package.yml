@@ -3,9 +3,9 @@ name: Build Package
 # Controls when the workflow will run
 on:
   repository_dispatch:
-    types:
-      - BiglinuxArch/*
-      - "*"
+    types: [*]
+    # types:
+    #   - BiglinuxArch/*
 
   workflow_dispatch:
 
@@ -23,8 +23,7 @@ jobs:
 
       - name: echo PayLoads
         run: |
-          echo "Event: ${{ github.event_name }}"
-          echo "Event: ${{ github.event.type }}"
+          echo "Event Type: ${{ github.event.action }}"
           echo "url: ${{ github.event.client_payload.url }}"
           echo "user: ${{ github.event.client_payload.user }}"
           echo "branch: ${{ github.event.client_payload.branch }}"
