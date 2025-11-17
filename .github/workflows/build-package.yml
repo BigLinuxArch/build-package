@@ -5,6 +5,7 @@ on:
   repository_dispatch:
     types:
       - BiglinuxArch/*
+      - *
 
   workflow_dispatch:
 
@@ -22,6 +23,7 @@ jobs:
 
       - name: echo PayLoads
         run: |
+          echo "Event: ${{ github.event.type }}"
           echo "url: ${{ github.event.client_payload.url }}"
           echo "user: ${{ github.event.client_payload.user }}"
           echo "branch: ${{ github.event.client_payload.branch }}"
