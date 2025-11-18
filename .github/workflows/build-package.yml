@@ -3,7 +3,6 @@ name: Build Package
 # Controls when the workflow will run
 on:
   repository_dispatch:
-    types: []
     types:
       - BigLinuxArch/brave-bin
 
