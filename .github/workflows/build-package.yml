@@ -4,7 +4,7 @@ name: Build Package
 on:
   repository_dispatch:
     types:
-      - BigLinuxArch/brave-bin
+      - BigLinuxArch/*
 
   workflow_dispatch:
 
