@@ -241,92 +241,92 @@ jobs:
 
           ls -lh
 
-      # - name: Rename Package
-      #   shell: bash -O extglob {0}
-      #   run: |
-      #     # "Rename Package"
-      #     cd /home/builduser
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     for i in *.zst; do if [ -n "$(ls $i | grep :)" ]; then mv $i $(echo $i | sed 's/:/-/'); fi; done
-      #
-      # - name: sign package
-      #   shell: bash -O extglob {0}
-      #   run: |
-      #     # "Assinar Pacote"
-      #     cd /home/builduser
-      #     cat <(echo -e "${{ secrets.GPG_PRIVATE_KEY }}") | gpg --batch --import &>/dev/null
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     for p in $(find $PWD -maxdepth 1 -regex '.*\.pkg\.tar\.\(xz\|zst\)'); do
-      #       gpg --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" --detach-sign ${p}
-      #     done
-      #
-      # - name: CheckSum
-      #   shell: bash -O extglob {0}
-      #   run: |
-      #     # "Checksum"
-      #     cd /home/builduser
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     echo '#!/bin/bash
-      #     for i in $(ls *.zst); do md5sum $i >> $i.md5; done
-      #     for i in $(ls *.sig | sed 's/.sig//'); do md5sum $i.sig >> $i.md5; done
-      #     exit 0' > md5.sh
-      #     bash md5.sh
-      #
-      # - name: Publish Package on GitHub
-      #   shell: bash
-      #   run: |
-      #     cd /home/builduser
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     ls -lh
-      #
-      #     #Release#
-      #     source PKGBUILD
-      #     release=${pkgname}-${pkgver}-${pkgrel}
-      #
-      #     # echo ${{ github.token }} | gh auth login --with-token
-      #     # repo=${{ github.repository }}
-      #     echo ${{ secrets.TOKEN_RELEASE }} | gh auth login --with-token
-      #     repo=$(sed 's|https://github.com/||' <<< ${{ github.event.client_payload.url }})
-      #
-      #     gh release create ${release} --title ${release} --repo ${repo} --notes "automated release from ${{ github.event.client_payload.url }}" || echo "release already exists"
-      #     GITHUB_LINK=https://github.com/${repo}/releases/download/${release}
-      #     for i in .zst .sig .tar .md5; do
-      #       find -iname "*$i" -exec gh release upload ${release} --repo ${repo} --clobber {} \;
-      #     done
-      #
-      # - name: Push to Repo
-      #   shell: bash
-      #   run: |
-      #     cd /home/builduser
-      #     gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
-      #     cd $gitfolder
-      #     ls -lh
-      #
-      #     echo "## ssh setup"
-      #     mkdir -p /home/runner/.ssh
-      #     touch /home/runner/.ssh/id_rsa
-      #     chmod 600 /home/runner/.ssh/id_rsa
-      #     ssh-agent -a /tmp/ssh_agent.sock > /dev/null
-      #     echo "${{ secrets.PKGBUILD_KEY }}" >> /home/runner/.ssh/id_rsa
-      #     eval `ssh-agent -s`
-      #     ssh-add /home/runner/.ssh/id_rsa
-      #     ssh-keyscan -t rsa -p ${{ secrets.PKGBUILD_PORT }} ${{ secrets.PKGBUILD_HOST }} >> /home/runner/.ssh/known_hosts
-      #
-      #     ls -lh
-      #     for i in *.zst *.sig *.md5; do
-      #     test -e $i && rsync -vapz -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.PKGBUILD_PORT }}" $i ${{ secrets.PKGBUILD_USER }}@${{ secrets.PKGBUILD_HOST }}:${{ secrets.PKGBUILD_ARCHLINUX_DIR }}/x86_64
-      #     sleep 10
-      #     done
-      #
-      # - name: Telegram Alert Fail
-      #   if: ${{ failure() || cancelled() }}
-      #   run: |
-      #     curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "🚨 FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true, "disable_web_page_preview": true}' ${{ secrets.MESSAGE_BOT_KEY }}
-      #
-      #   ## Tmate ##
-      # #- name: Setup tmate session
-      # #  uses: mxschmitt/action-tmate@v3
+      - name: Rename Package
+        shell: bash -O extglob {0}
+        run: |
+          # "Rename Package"
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          for i in *.zst; do if [ -n "$(ls $i | grep :)" ]; then mv $i $(echo $i | sed 's/:/-/'); fi; done
+
+      - name: sign package
+        shell: bash -O extglob {0}
+        run: |
+          # "Assinar Pacote"
+          cd /home/builduser
+          cat <(echo -e "${{ secrets.GPG_PRIVATE_KEY }}") | gpg --batch --import &>/dev/null
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          for p in $(find $PWD -maxdepth 1 -regex '.*\.pkg\.tar\.\(xz\|zst\)'); do
+            gpg --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" --detach-sign ${p}
+          done
+
+      - name: CheckSum
+        shell: bash -O extglob {0}
+        run: |
+          # "Checksum"
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          echo '#!/bin/bash
+          for i in $(ls *.zst); do md5sum $i >> $i.md5; done
+          for i in $(ls *.sig | sed 's/.sig//'); do md5sum $i.sig >> $i.md5; done
+          exit 0' > md5.sh
+          bash md5.sh
+
+      - name: Publish Package on GitHub
+        shell: bash
+        run: |
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          ls -lh
+
+          #Release#
+          source PKGBUILD
+          release=${pkgname}-${pkgver}-${pkgrel}
+
+          # echo ${{ github.token }} | gh auth login --with-token
+          # repo=${{ github.repository }}
+          echo ${{ secrets.TOKEN_RELEASE }} | gh auth login --with-token
+          repo=$(sed 's|https://github.com/||' <<< ${{ github.event.client_payload.url }})
+
+          gh release create ${release} --title ${release} --repo ${repo} --notes "automated release from ${{ github.event.client_payload.url }}" || echo "release already exists"
+          GITHUB_LINK=https://github.com/${repo}/releases/download/${release}
+          for i in .zst .sig .tar .md5; do
+            find -iname "*$i" -exec gh release upload ${release} --repo ${repo} --clobber {} \;
+          done
+
+      - name: Push to Repo
+        shell: bash
+        run: |
+          cd /home/builduser
+          gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
+          cd $gitfolder
+          ls -lh
+
+          echo "## ssh setup"
+          mkdir -p /home/runner/.ssh
+          touch /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
+          ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+          echo "${{ secrets.PKGBUILD_KEY }}" >> /home/runner/.ssh/id_rsa
+          eval `ssh-agent -s`
+          ssh-add /home/runner/.ssh/id_rsa
+          ssh-keyscan -t rsa -p ${{ secrets.PKGBUILD_PORT }} ${{ secrets.PKGBUILD_HOST }} >> /home/runner/.ssh/known_hosts
+
+          ls -lh
+          for i in *.zst *.sig *.md5; do
+          test -e $i && rsync -vapz -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.PKGBUILD_PORT }}" $i ${{ secrets.PKGBUILD_USER }}@${{ secrets.PKGBUILD_HOST }}:${{ secrets.PKGBUILD_ARCHLINUX_DIR }}/x86_64
+          sleep 10
+          done
+
+      - name: Telegram Alert Fail
+        if: ${{ failure() || cancelled() }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "🚨 FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true, "disable_web_page_preview": true}' ${{ secrets.MESSAGE_BOT_KEY }}
+
+        ## Tmate ##
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
