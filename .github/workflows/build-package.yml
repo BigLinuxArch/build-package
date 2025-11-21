@@ -226,6 +226,7 @@ jobs:
           # sudo chmod 777 /home/builduser
           # ls -lh /home
           ls -lha /
+          ls -lha /github/
 
           # cd /home/builduser
           # sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
