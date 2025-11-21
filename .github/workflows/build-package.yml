@@ -227,6 +227,9 @@ jobs:
           # ls -lh /home
           ls -lha /
           ls -lha /github/
+          ls -lha /github/home/
+          cat /etc/passwd
+          groups
 
           # cd /home/builduser
           # sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
