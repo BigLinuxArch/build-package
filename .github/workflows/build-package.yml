@@ -223,6 +223,8 @@ jobs:
           ls -lh /home
 
           cd /home/builduser
+          echo PWD
+          pwd
           sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
           cd $(basename ${{ github.event.client_payload.url }})
           if [ -e "extraBuild.sh" ];then
