@@ -220,6 +220,8 @@ jobs:
           printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers
           echo PWD
           pwd
+          echo '$BUILDDIR'
+          echo $BUILDDIR
           ls -lh /home
           sudo chmod 777 /home/builduser
           ls -lh /home
