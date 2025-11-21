@@ -223,12 +223,7 @@ jobs:
 
           cd /home/builduser
           sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
-          ls -lha
           cd $(basename ${{ github.event.client_payload.url }})
-          ls -lha
-
-          find /home -type f -name PKGBUILD
-          find /github/home -type f -name PKGBUILD
 
           if [ -e "extraBuild.sh" ];then
             echo "Run extraBuild"
