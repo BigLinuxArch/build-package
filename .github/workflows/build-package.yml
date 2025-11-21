@@ -27,111 +27,111 @@ jobs:
           echo "branch: ${{ github.event.client_payload.branch }}"
           echo "extrarepo: ${{ github.event.client_payload.extrarepo }}"
 
-      - name: Install Dependencies
-        shell: bash
-        run: |
-          echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
-          # pacman -Syu --noconfirm pacman sudo git github-cli openssh gnupg coreutils rsync wget fakeroot binutils cmake extra-cmake-modules gcc make devtools \
-          # acl \
-          # archlinux-keyring \
-          # autoconf \
-          # automake \
-          # base-devel \
-          # binutils \
-          # bison \
-          # btrfs-progs \
-          # cryptsetup \
-          # db \
-          # debugedit \
-          # diffutils \
-          # docker \
-          # dnssec-anchors \
-          # fakeroot \
-          # flex \
-          # gc \
-          # gcc-libs \
-          # git \
-          # glib2 \
-          # groff \
-          # grub \
-          # guile \
-          # iputils \
-          # jansson \
-          # ldns \
-          # libedit \
-          # libisl \
-          # libmpc \
-          # libnghttp2 \
-          # libnl \
-          # libp11-kit \
-          # libpcap \
-          # libpsl \
-          # libsasl \
-          # libseccomp \
-          # libsecret \
-          # libssh2 \
-          # libsysprof-capture \
-          # libtasn1 \
-          # libtirpc \
-          # libtool \
-          # libunistring \
-          # libverto \
-          # libxcrypt \
-          # libxml2 \
-          # licenses \
-          # linux \
-          # linux-api-headers \
-          # linux-firmware \
-          # linux-firmware-whence \
-          # lz4 \
-          # lzo \
-          # m4 \
-          # make \
-          # mkinitcpio \
-          # mkinitcpio-busybox \
-          # mpfr \
-          # nano \
-          # ncurses \
-          # nettle \
-          # npth \
-          # openssh \
-          # openssl \
-          # p11-kit \
-          # pacman-mirrorlist \
-          # pam \
-          # pambase \
-          # patch \
-          # pciutils \
-          # pcre2 \
-          # perl \
-          # perl-error \
-          # perl-mailtools \
-          # perl-timedate \
-          # pinentry \
-          # pipewire-jack \
-          # pkgconf \
-          # popt \
-          # procps-ng \
-          # psmisc \
-          # readline \
-          # sed \
-          # shadow \
-          # sqlite \
-          # sudo \
-          # systemd \
-          # systemd-libs \
-          # systemd-sysvcompat \
-          # tar \
-          # texinfo \
-          # tpm2-tss \
-          # tzdata \
-          # util-linux \
-          # util-linux-libs \
-          # which \
-          # xz \
-          # zlib \
-          # zram-generator \
-          # zstd
+      # - name: Install Dependencies
+      #   shell: bash
+      #   run: |
+      #     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+      #     pacman -Syu --noconfirm pacman sudo git github-cli openssh gnupg coreutils rsync wget fakeroot binutils cmake extra-cmake-modules gcc make devtools \
+      #     acl \
+      #     archlinux-keyring \
+      #     autoconf \
+      #     automake \
+      #     base-devel \
+      #     binutils \
+      #     bison \
+      #     btrfs-progs \
+      #     cryptsetup \
+      #     db \
+      #     debugedit \
+      #     diffutils \
+      #     docker \
+      #     dnssec-anchors \
+      #     fakeroot \
+      #     flex \
+      #     gc \
+      #     gcc-libs \
+      #     git \
+      #     glib2 \
+      #     groff \
+      #     grub \
+      #     guile \
+      #     iputils \
+      #     jansson \
+      #     ldns \
+      #     libedit \
+      #     libisl \
+      #     libmpc \
+      #     libnghttp2 \
+      #     libnl \
+      #     libp11-kit \
+      #     libpcap \
+      #     libpsl \
+      #     libsasl \
+      #     libseccomp \
+      #     libsecret \
+      #     libssh2 \
+      #     libsysprof-capture \
+      #     libtasn1 \
+      #     libtirpc \
+      #     libtool \
+      #     libunistring \
+      #     libverto \
+      #     libxcrypt \
+      #     libxml2 \
+      #     licenses \
+      #     linux \
+      #     linux-api-headers \
+      #     linux-firmware \
+      #     linux-firmware-whence \
+      #     lz4 \
+      #     lzo \
+      #     m4 \
+      #     make \
+      #     mkinitcpio \
+      #     mkinitcpio-busybox \
+      #     mpfr \
+      #     nano \
+      #     ncurses \
+      #     nettle \
+      #     npth \
+      #     openssh \
+      #     openssl \
+      #     p11-kit \
+      #     pacman-mirrorlist \
+      #     pam \
+      #     pambase \
+      #     patch \
+      #     pciutils \
+      #     pcre2 \
+      #     perl \
+      #     perl-error \
+      #     perl-mailtools \
+      #     perl-timedate \
+      #     pinentry \
+      #     pipewire-jack \
+      #     pkgconf \
+      #     popt \
+      #     procps-ng \
+      #     psmisc \
+      #     readline \
+      #     sed \
+      #     shadow \
+      #     sqlite \
+      #     sudo \
+      #     systemd \
+      #     systemd-libs \
+      #     systemd-sysvcompat \
+      #     tar \
+      #     texinfo \
+      #     tpm2-tss \
+      #     tzdata \
+      #     util-linux \
+      #     util-linux-libs \
+      #     which \
+      #     xz \
+      #     zlib \
+      #     zram-generator \
+      #     zstd
 
       # - name: Clean System
       #   shell: bash -O extglob {0}
@@ -175,42 +175,42 @@ jobs:
       #     /lixo/usr/local/share/powershell
       #     df -h
 
-      - name: Add BigLinux Repo and Key
-        shell: bash
-        run: |
-          #add biglinux archlinux repository
-          echo '
-          [biglinux-archlinux]
-          SigLevel = PackageRequired
-          Server = https://repo.biglinux.com.br/archlinux/$arch' | tee -a /etc/pacman.conf
-          # echo '
-          # [bigiborg-'"${repo_dev}"']
-          # SigLevel = PackageRequired
-          # Server = https://'"$mirror_unstable"'/$arch' | tee -a /etc/pacman.conf
-          # echo '
-          # [biglinux-testing]
-          # SigLevel = PackageRequired
-          # Server = https://'"$repo_mirror"'.biglinux.com.br/testing/$arch' | tee -a /etc/pacman.conf
-          # echo '
-          # [biglinux-stable]
-          # SigLevel = PackageRequired
-          # Server = https://repo.biglinux.com.br/stable/$arch' | tee -a /etc/pacman.conf
-
-          sed -i '/PACKAGER=/s/#PACKAGER=.*/\PACKAGER="BigLinux Package Build <bigbruno@gmail.com>\"/' /etc/makepkg.conf
-
-          #add biglinux Keyring
-          git clone --depth 1 https://github.com/biglinux/biglinux-keyring.git
-          pushd biglinux-keyring
-            install -m0644 biglinux.gpg /usr/share/pacman/keyrings/
-            install -m0644 biglinux-trusted /usr/share/pacman/keyrings/
-            install -m0644 biglinux-trusted /usr/share/pacman/keyrings/
-          popd
-          rm -rf biglinux-keyring
-
-          pacman-key --init
-          pacman-key --populate archlinux biglinux
-
-          pacman -Sy
+      # - name: Add BigLinux Repo and Key
+      #   shell: bash
+      #   run: |
+      #     #add biglinux archlinux repository
+      #     echo '
+      #     [biglinux-archlinux]
+      #     SigLevel = PackageRequired
+      #     Server = https://repo.biglinux.com.br/archlinux/$arch' | tee -a /etc/pacman.conf
+      #     # echo '
+      #     # [bigiborg-'"${repo_dev}"']
+      #     # SigLevel = PackageRequired
+      #     # Server = https://'"$mirror_unstable"'/$arch' | tee -a /etc/pacman.conf
+      #     # echo '
+      #     # [biglinux-testing]
+      #     # SigLevel = PackageRequired
+      #     # Server = https://'"$repo_mirror"'.biglinux.com.br/testing/$arch' | tee -a /etc/pacman.conf
+      #     # echo '
+      #     # [biglinux-stable]
+      #     # SigLevel = PackageRequired
+      #     # Server = https://repo.biglinux.com.br/stable/$arch' | tee -a /etc/pacman.conf
+      #
+      #     sed -i '/PACKAGER=/s/#PACKAGER=.*/\PACKAGER="BigLinux Package Build <bigbruno@gmail.com>\"/' /etc/makepkg.conf
+      #
+      #     #add biglinux Keyring
+      #     git clone --depth 1 https://github.com/biglinux/biglinux-keyring.git
+      #     pushd biglinux-keyring
+      #       install -m0644 biglinux.gpg /usr/share/pacman/keyrings/
+      #       install -m0644 biglinux-trusted /usr/share/pacman/keyrings/
+      #       install -m0644 biglinux-trusted /usr/share/pacman/keyrings/
+      #     popd
+      #     rm -rf biglinux-keyring
+      #
+      #     pacman-key --init
+      #     pacman-key --populate archlinux biglinux
+      #
+      #     pacman -Sy
 
       - name: Makepkg Build
         shell: bash
