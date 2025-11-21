@@ -226,6 +226,10 @@ jobs:
           ls -lha
           cd $(basename ${{ github.event.client_payload.url }})
           ls -lha
+
+          find /home -type f -name PKGBUILD
+          find /github/home -type f -name PKGBUILD
+
           if [ -e "extraBuild.sh" ];then
             echo "Run extraBuild"
             bash extraBuild.sh
