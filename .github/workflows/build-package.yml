@@ -218,22 +218,12 @@ jobs:
           useradd builduser -m
           passwd -d builduser
           printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers
-          echo PWD
-          pwd
-          echo '$BUILDDIR'
-          echo $BUILDDIR
-          # ls -lh /home
-          # sudo chmod 777 /home/builduser
-          # ls -lh /home
-          ls -lha /
-          ls -lha /github/
-          ls -lha /github/home/
-          cat /etc/passwd
-          groups
+
           sudo chown builduser:builduser -R /github/home
 
           cd /home/builduser
           sudo -u builduser bash -c "git clone ${{ github.event.client_payload.url }}.git"
+          ls -lha
           cd $(basename ${{ github.event.client_payload.url }})
           if [ -e "extraBuild.sh" ];then
             echo "Run extraBuild"
