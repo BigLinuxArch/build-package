@@ -323,7 +323,7 @@ jobs:
           done
 
       - name: Telegram Alert Fail
-        if: ${{ failure() || cancelled() }}
+        if: ${{ failure() }}
         run: |
           curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_ARCHLINUX }}", "text": "🚨 FALHA ao criar Pacote: ${{ github.event.action }} a partir do repo archinux, link do erro: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true, "disable_web_page_preview": true}' ${{ secrets.MESSAGE_BOT_KEY }}
 
