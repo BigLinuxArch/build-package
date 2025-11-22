@@ -248,7 +248,7 @@ jobs:
           cd /home/builduser
           gitfolder=$(find -type f -name PKGBUILD | sed 's/PKGBUILD//')
           cd $gitfolder
-          for i in *.zst; do if [ -n "$(ls $i | grep :)" ]; then mv $i $(echo $i | sed 's/:/-/'); fi; done
+          for i in *.zst; do if [ -n "$(ls $i | grep :)" ]; then mv $i $(echo $i | sed 's/:/-/' | sed 's/+/-/g'); fi; done
 
       - name: sign package
         shell: bash -O extglob {0}
